@@ -1,0 +1,21 @@
+.todo-manager {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+        padding: 20px;
+        background: turquoise;
+    }
+    &__body {
+        flex: 1;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,2 @@
+# Сборка
+`npm run build`

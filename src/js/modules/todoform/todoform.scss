@@ -1,0 +1,23 @@
+.todo-form {
+    position: relative;
+}
+
+.todo-form__textarea {
+    border: none;
+    outline: none;
+    display: block;
+    font: 16px/24px Arial, sans-serif;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 100%;
+    margin-bottom: 8px;
+}
+
+.todo-form__hint {
+    font-size: 11px;
+    float: left;
+}
+.todo-form__select {
+    float: right;
+}
