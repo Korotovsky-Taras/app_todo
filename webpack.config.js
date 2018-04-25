@@ -7,7 +7,7 @@ const webpack = require('webpack')
 
 const PATHS = {
 	srcPath: "src",
-	devPath: "build",
+	devPath: "./",
 	src: path.join(__dirname, '/src'),
 	build: path.join(__dirname, '/build')
 };
