@@ -5,27 +5,32 @@ import {TodoListItem} from '../todoitem/todoitem'
 export class TodoList extends View {
 	constructor(el, model){
 		super(el);
+		this.id = -1;
 		this.model = model;
-		this.data = model.getData();
+		this.procedures = model.procedures;
 		this.className = "todo-list";
 		this.init();
 	}
 
 	onAttach(el){
 		el.classList.add(this.className);
+		this.loadItems();
+	}
 
-		console.log(this.data, this.data instanceof Array)
-		if(this.data && this.data instanceof Array){
-			for(let item of this.data){
-				this.addItem(item)
+	loadItems(){
+		let data = this.model.storage;
+
+		if(data && data instanceof Array){
+			for(let {data: options} of data){
+				this.addItem(options)
 			}
 		}
-		// загрузить если есть
 	}
 
 	addItem(options){
-		this.model.add(new TodoListItem(this.view, Object.assign(options, {
-			onchange: el => {this.onChange(el)}
+		this.model.push(new TodoListItem(this.view, Object.assign(options, {
+			id: ++this.id,
+			ondatachange: (...opt) => {this.onDataChange(...opt)}
 		})));
 	}
 
@@ -33,7 +38,7 @@ export class TodoList extends View {
 	 * change event from TodoListItem
 	 * @override
 	 */
-	onChange(){
-
+	onDataChange(procedure, ...data){
+		this.procedures[procedure](...data)
 	}
 }
