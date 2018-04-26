@@ -1,9 +1,8 @@
-const KEY = 'todo';
-
 export class TodoModel {
 
-	constructor() {
+	constructor(key) {
 		this.map = [];
+		this.key = key;
 		this.procedures = {
 			onRemove: ({id}) => {
 				this.remove(id);
@@ -18,7 +17,7 @@ export class TodoModel {
 	}
 
 	get storage () {
-		let storage = localStorage.getItem(KEY);
+		let storage = localStorage.getItem(this.key);
 
 		if(storage) {
 			return JSON.parse(storage);
@@ -26,17 +25,20 @@ export class TodoModel {
 		return null;
 	}
 
+	set storage (data) {
+		localStorage.setItem(this.key, JSON.stringify(data));
+	}
+
 	save (){
-		localStorage.setItem(KEY, JSON.stringify(this.map));
+		localStorage.setItem(this.key, JSON.stringify(this.map));
 	};
 
-	push (data){
+	push ({data}){
 		 this.map.push(data);
 		 this.save();
 	}
 
 	change (id, key, value){
-		console.log(this.map, this.map[id], id, key, value)
 		this.map[id][key] = value;
 		this.save();
 	}

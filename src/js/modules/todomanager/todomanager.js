@@ -8,7 +8,7 @@ export class TodoManager extends View {
 	constructor(el){
 		super(el);
 		this.className = "todo-manager";
-		this.model = new TodoModel();
+		this.model = new TodoModel("todo");
 		this.init();
 	}
 
@@ -25,8 +25,12 @@ export class TodoManager extends View {
 		let todoList = new TodoList(bodyElement, this.model);
 		let todoForm = new TodoForm(headerElement);
 
-		todoForm.insertMessage = (opt) => {
-			todoList.addItem(opt);
+		todoForm.addItem = (...opt) => {
+			todoList.addItem(...opt);
+		};
+
+		todoForm.sortList = ({index}) => {
+			todoList.sortItems(index);
 		};
 
 		todoList.onChange = (element) => {

@@ -45,7 +45,7 @@ export class TodoListItem extends View {
 
 		setChecked(this.data.checked);
 
-		checkButton.addEventListener( 'change', () => {
+		checkButton.addEventListener('change', () => {
 			let checkedValue = checkButton.checked;
 			this.data.checked = checkedValue;
 			setChecked(checkedValue);

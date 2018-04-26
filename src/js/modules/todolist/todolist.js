@@ -17,11 +17,42 @@ export class TodoList extends View {
 		this.loadItems();
 	}
 
-	loadItems(){
+	sortItems(index){
 		let data = this.model.storage;
 
+		let sortable = [];
+
+		if(index === 0) {
+			sortable = data.sort((a, b) => {
+				return a.text.length < b.text.length
+			});
+		}
+
+		if(index === 1) {
+			sortable = data.sort((a, b) => {
+				return a.priority.value > b.priority.value
+			});
+		}
+
+		Array.from(this.view.children).map(el => {
+			el.remove();
+		});
+
+		this.model.storage = sortable;
+
 		if(data && data instanceof Array){
-			for(let {data: options} of data){
+			for(let options of data){
+				new TodoListItem(this.view, Object.assign(options, {
+					id: ++this.id,
+					ondatachange: (...opt) => {this.onDataChange(...opt)}
+				}))
+			}
+		}
+	}
+
+	loadItems(data = this.model.storage){
+		if(data && data instanceof Array){
+			for(let options of data){
 				this.addItem(options)
 			}
 		}

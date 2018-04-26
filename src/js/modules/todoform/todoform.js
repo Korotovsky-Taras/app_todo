@@ -13,7 +13,14 @@ export class TodoForm extends View {
 		this.createTextarea();
 		this.createSelect();
 		this.createHint();
+		this.createSort();
 	}
+
+	createOption (text) {
+		let option = document.createElement('option');
+		option.text = text;
+		return option;
+	};
 
 	createHint() {
 		let hint = this.deffineElement(this.className, 'hint');
@@ -22,17 +29,27 @@ export class TodoForm extends View {
 	}
 
 	createSelect() {
-		let createOption = (text) => {
-			let option = document.createElement('option');
-			option.text = text;
-			return option;
-		};
-
-		let select = this.deffineElement(this.className, 'select', 'select');
+		let select = this.deffineElement(this.className, 'priority', 'select');
 		for(let value of ['low', 'middle', 'high']){
-			select.add(createOption(value));
+			select.add(this.createOption(value));
 		}
 		this.view.appendChild(select);
+	}
+
+	createSort() {
+		let select = this.deffineElement(this.className, 'sort', 'select');
+		for(let value of ['по имени', 'по приоритету']){
+			select.add(this.createOption(value));
+		}
+
+		this.view.appendChild(select);
+
+		select.addEventListener('change', () => {
+			let {selectedIndex: sortIndex} = select.options;
+			this.sortList({
+				index: sortIndex
+			});
+		});
 	}
 
 	createTextarea() {
@@ -47,7 +64,7 @@ export class TodoForm extends View {
 
 	send(){
 		let textarea = this.getElement('textarea');
-		let select = this.getElement('select');
+		let select = this.getElement('priority');
 		let {selectedIndex: priorityValue} = select.options;
 		let text = textarea.value;
 
@@ -55,7 +72,7 @@ export class TodoForm extends View {
 			textarea.value = "";
 			textarea.focus();
 			select.options.selectedIndex = 0;
-			this.insertMessage({
+			this.addItem({
 				text: text,
 				priority: {
 					value: priorityValue,
@@ -70,5 +87,12 @@ export class TodoForm extends View {
 	 * @override
 	 * @param text
 	 */
-	insertMessage(opt) {}
+	addItem(opt) {}
+
+	/**
+	 * Обновление
+	 * @override
+	 * @param text
+	 */
+	sortList(opt) {}
 }
