@@ -44,7 +44,7 @@ const commonConfig = merge([
 	parts.loadFonts({
 		include: PATHS.app,
 		options: {
-			name: 'fonts/[name].[hash:8].[ext]'
+			name: 'fonts/[name].[ext]' //.[hash:8]
 		}
 	})
 ]);
@@ -53,8 +53,8 @@ const productionConfig = merge([
 	{
 		output: {
       publicPath: "./",
-			chunkFilename: 'scripts/[name].[chunkhash:8].js',
-			filename: 'scripts/[name].[chunkhash:8].js'
+			chunkFilename: 'scripts/[name].js', //.[chunkhash:8]
+			filename: 'scripts/[name].js' //.[chunkhash:8]
 		},
 		performance: {
 			hints: 'warning', // 'error' or false are valid too
@@ -62,8 +62,8 @@ const productionConfig = merge([
 			maxAssetSize: 450000 // in bytes
 		},
 		plugins: [
-			new webpack.HashedModuleIdsPlugin(),
-			new ManifestPlugin(),
+			// new webpack.HashedModuleIdsPlugin(),
+			// new ManifestPlugin(),
 			new BundleAnalyzerPlugin(),
 			new CleanPlugin(PATHS.build)
 		]
@@ -73,23 +73,23 @@ const productionConfig = merge([
 	parts.loadJS({
 		include: PATHS.app,
 		options: {
-			cacheDirectory: true
+			// cacheDirectory: true
 		}
 	}),
 	parts.extractBundles([
-		{
-			name: 'vendor',
-			minChunks: ({ resource }) => (
-					resource &&
-					resource.indexOf('node_modules') >= 0 &&
-					resource.match(/\.js$/)
-			)
-		},
+		// {
+		// 	name: 'vendor',
+		// 	minChunks: ({ resource }) => (
+		// 			resource &&
+		// 			resource.indexOf('node_modules') >= 0 &&
+		// 			resource.match(/\.js$/)
+		// 	)
+		// },
 		// should be the last definition
-		{
-			name: 'manifest',
-			minChunks: Infinity
-		}
+		// {
+		// 	name: 'manifest',
+		// 	minChunks: Infinity
+		// }
 	]),
 	parts.extractCSS({
 		include: PATHS.app,
@@ -113,7 +113,7 @@ const productionConfig = merge([
 		include: PATHS.app,
 		options: {
 			limit: 15000,
-			name: 'images/[name].[hash:8].[ext]'
+			name: 'images/[name].[ext]' //.[hash:8]
 		}
 	}),
 	// should go after loading images
