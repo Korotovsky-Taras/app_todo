@@ -40,25 +40,6 @@ exports.devServer = ({host, port} = {}) => ({
 	}
 })
 
-exports.loadPugHTML = (options) => ({
-	module: {
-		rules: [
-			{
-				test: /\.pug$/,
-				use: [
-					{
-						loader: 'html-loader'
-					},
-					{
-						loader: 'pug-html-loader',
-						options
-					}
-				]
-			}
-		]
-	}
-})
-
 exports.loadPug = (options) => ({
 	module: {
 		rules: [
@@ -66,7 +47,8 @@ exports.loadPug = (options) => ({
 				test: /\.pug$/,
 				use: [
           {
-            loader: 'pug-loader'
+            loader: 'pug-loader',
+            options
           },
 				]
 			}

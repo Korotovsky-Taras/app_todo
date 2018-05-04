@@ -68,7 +68,7 @@ const productionConfig = merge([
 			new CleanPlugin(PATHS.build)
 		]
 	},
-  parts.loadPugHTML(),
+  parts.loadPug(),
 	parts.minifyJS(),
 	parts.loadJS({
 		include: PATHS.app,

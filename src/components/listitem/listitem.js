@@ -18,8 +18,6 @@ export class TodoListItem extends View {
     this.prioritySelector = selector;
     this.ondatachange = ondatachange;
 
-    console.log(typeof listItemView, listItemView)
-
     this.init(listItemView({text: text}));
   }
 
