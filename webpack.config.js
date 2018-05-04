@@ -29,7 +29,7 @@ const commonConfig = merge([
 		entry: `${PATHS.app}/`,
 		output: {
 			path: PATHS.build,
-			publicPath: parts.publicPath
+      publicPath: parts.publicPath
 		},
 		plugins: [
 			new HtmlPlugin({
@@ -52,14 +52,15 @@ const commonConfig = merge([
 const productionConfig = merge([
 	{
 		output: {
+      publicPath: "./",
 			chunkFilename: 'scripts/[name].[chunkhash:8].js',
 			filename: 'scripts/[name].[chunkhash:8].js'
 		},
-		// performance: {
-		// 	hints: 'warning', // 'error' or false are valid too
-		// 	maxEntrypointSize: 100000, // in bytes
-		// 	maxAssetSize: 450000 // in bytes
-		// },
+		performance: {
+			hints: 'warning', // 'error' or false are valid too
+			maxEntrypointSize: 100000, // in bytes
+			maxAssetSize: 450000 // in bytes
+		},
 		plugins: [
 			new webpack.HashedModuleIdsPlugin(),
 			new ManifestPlugin(),
